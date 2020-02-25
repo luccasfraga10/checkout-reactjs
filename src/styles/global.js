@@ -1,3 +1,4 @@
+import 'font-awesome/css/font-awesome.css';
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
@@ -17,6 +18,7 @@ export default createGlobalStyle`
   }
 
   body {
+    background-color: #f5f5f5;
     margin: 0;
     -webkit-font-smoothing: antialiased !important;
   }

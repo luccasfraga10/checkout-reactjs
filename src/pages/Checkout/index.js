@@ -1,11 +1,15 @@
 import React from 'react';
-
-import { Section, Container } from './styles';
+import { HeaderForm, FieldsForm } from '../../Components';
+import { Section, Container, Navbar } from './styles';
 
 const Home = () => (
   <Section>
+    <Navbar>
+      <h1>CheckoutForm</h1>
+    </Navbar>
     <Container>
-      <h1>oie</h1>
+      <HeaderForm title="Personal data" />
+      <FieldsForm />
     </Container>
   </Section>
 );
