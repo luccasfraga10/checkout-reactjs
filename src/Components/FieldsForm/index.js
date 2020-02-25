@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { TextField, FormControl, InputAdornment } from '@material-ui/core';
-import { FieldsUserForm, FormDirectionRow } from './configFields';
-import { MaskCPF, MaskPhone } from '../MaskFields';
+import {
+  TextField,
+  FormControl,
+  InputAdornment,
+  MenuItem,
+} from '@material-ui/core';
+import { FieldsUserForm, FormDirectionRow, FieldsAdress } from './configFields';
+import { MaskCPF, MaskPhone, MaskZipcode } from '../MaskFields';
+import HeaderForm from '../HeaderForm';
 import { FormContainer, Container, Button } from './styles';
+import { States } from '../../constants';
 
 const FieldsForm = () => {
   const [value, setValue] = useState({
@@ -12,6 +19,13 @@ const FieldsForm = () => {
     phone: '',
     password: '',
     passwordConfirm: '',
+    zipcode: '',
+    address: '',
+    number: '',
+    complement: '',
+    neighborhood: '',
+    city: '',
+    state: '',
   });
 
   const [formValid, setFormValid] = useState({
@@ -21,6 +35,13 @@ const FieldsForm = () => {
     phone: false,
     password: false,
     passwordConfirm: false,
+    zipcode: false,
+    address: false,
+    number: false,
+    complement: false,
+    neighborhood: false,
+    city: false,
+    state: false,
   });
 
   function handleValue(event) {
@@ -114,6 +135,90 @@ const FieldsForm = () => {
       fieldsStatus.push(true);
     }
 
+    if (value.zipcode.length < 9) {
+      setFormValid(prevState => ({
+        ...prevState,
+        zipcode: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        zipcode: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
+    if (value.address.length < 2) {
+      setFormValid(prevState => ({
+        ...prevState,
+        address: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        address: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
+    if (value.number.length < 1) {
+      setFormValid(prevState => ({
+        ...prevState,
+        number: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        number: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
+    if (value.neighborhood.length < 1) {
+      setFormValid(prevState => ({
+        ...prevState,
+        neighborhood: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        neighborhood: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
+    if (value.city.length < 1) {
+      setFormValid(prevState => ({
+        ...prevState,
+        city: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        city: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
+    if (value.state.length < 1) {
+      setFormValid(prevState => ({
+        ...prevState,
+        state: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        state: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
     const formStatus = fieldsStatus.every(element => {
       return element !== false;
     });
@@ -124,6 +229,7 @@ const FieldsForm = () => {
   function inputProps(field) {
     const cpf = field.nameField === 'cpf';
     const phone = field.nameField === 'phone';
+    const zipcode = field.nameField === 'zipcode';
 
     let obj = {
       startAdornment: (
@@ -137,6 +243,13 @@ const FieldsForm = () => {
       obj = {
         ...obj,
         inputComponent: MaskCPF,
+      };
+    }
+
+    if (zipcode) {
+      obj = {
+        ...obj,
+        inputComponent: MaskZipcode,
       };
     }
 
@@ -161,8 +274,10 @@ const FieldsForm = () => {
     console.log('Form validado para api', value);
   }
 
+  // console.log('value', value);
   return (
     <FormContainer onSubmit={handleSubmit}>
+      <HeaderForm title="User:" />
       <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
         {FieldsUserForm &&
           FieldsUserForm.map(field => (
@@ -177,6 +292,7 @@ const FieldsForm = () => {
                 label={field.label}
                 id={field.label}
                 type={field.type}
+                select={field.type === 'select'}
                 onChange={handleValue}
                 value={field.nameField && value[field.nameField]}
                 name={field.nameField}
@@ -195,7 +311,52 @@ const FieldsForm = () => {
           ))}
       </Container>
 
-      <Button disabled={false}>Enviar</Button>
+      <HeaderForm title="Adress:" margin="70px 0 15px" />
+      <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
+        {FieldsAdress &&
+          FieldsAdress.map(field => (
+            <FormControl
+              key={field.id}
+              error={field.nameField && formValid[field.nameField]}
+              style={{ width: FormDirectionRow ? field.width : '100%' }}
+            >
+              <TextField
+                placeholder={field.placeholder && field.placeholder}
+                variant={field.variant && field.variant}
+                label={field.label}
+                id={field.label}
+                type={field.type}
+                select={field.type === 'select'}
+                onChange={handleValue}
+                value={field.nameField && value[field.nameField]}
+                name={field.nameField}
+                error={field.nameField && formValid[field.nameField]}
+                helperText={
+                  field.nameField &&
+                  formValid[field.nameField] &&
+                  field.msgError
+                }
+                inputProps={{
+                  maxLength: field.maxLength && field.maxLength,
+                }}
+                InputProps={inputProps(field)}
+              >
+                {field.type === 'select' &&
+                  field.nameField === 'state' &&
+                  States.map(item => (
+                    <MenuItem key={item.value} value={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+              </TextField>
+            </FormControl>
+          ))}
+      </Container>
+
+      <Button disabled={false}>
+        Send &nbsp;&nbsp;
+        <i className="fa fa-rocket" />
+      </Button>
     </FormContainer>
   );
 };

@@ -32,6 +32,7 @@ export const Container = styled.div`
 
 export const Button = styled.button`
   display: flex;
+  align-items: center;
   padding: 10px 40px;
   font-size: 15px;
   border: none;
