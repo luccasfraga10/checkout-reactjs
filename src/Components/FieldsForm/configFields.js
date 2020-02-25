@@ -1,5 +1,7 @@
 export const FormDirectionRow = true;
 
+// nomeCartao, numeroCartao, mesValCartao, cvvCartao
+
 export const FieldsUserForm = [
   {
     variant: 'standard', // standard || outlined || filled
@@ -10,23 +12,67 @@ export const FieldsUserForm = [
     icon: 'fa fa-user',
     placeholder: '',
     msgError: 'Enter a valid name.',
-    maxLength: 1,
-    valid: '',
-    maskRegex: '',
+    maxLength: '',
     width: '33.3%',
   },
   {
-    variant: 'standard', // standard || outlined || filled
+    variant: 'standard',
     id: 2,
+    nameField: 'email',
+    label: 'E-mail',
+    type: 'text',
+    icon: 'fa fa-user',
+    placeholder: '',
+    msgError: 'Enter a valid e-mail.',
+    maxLength: '',
+    width: '33.3%',
+  },
+  {
+    variant: 'standard',
+    id: 3,
+    nameField: 'cpf',
+    label: 'CPF',
+    type: 'text',
+    icon: 'fa fa-user',
+    placeholder: '',
+    msgError: 'Enter a valid cpf.',
+    maxLength: '',
+    width: '33.3%',
+  },
+  {
+    variant: 'standard',
+    id: 4,
+    nameField: 'phone',
+    label: 'Phone',
+    type: 'text',
+    icon: 'fa fa-user',
+    placeholder: '',
+    msgError: 'Enter a valid phone.',
+    maxLength: '',
+    width: '33.3%',
+  },
+  {
+    variant: 'standard',
+    id: 5,
     nameField: 'password',
     label: 'Password',
     type: 'password',
     icon: 'fa fa-user',
     placeholder: '',
-    msgError: 'Enter a valid password.',
+    msgError: 'Password must be at least 1 letter and 1 number',
     maxLength: '',
-    valid: '',
-    maskRegex: '',
+    width: '33.3%',
+  },
+  {
+    variant: 'standard',
+    id: 6,
+    nameField: 'passwordConfirm',
+    label: 'Password confirm',
+    type: 'password',
+    icon: 'fa fa-user',
+    placeholder: '',
+    msgError: 'Passwords are not supported',
+    maxLength: '',
     width: '33.3%',
   },
 ];
