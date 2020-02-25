@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TextField,
   FormControl,
@@ -10,6 +10,7 @@ import { MaskCPF, MaskPhone, MaskZipcode } from '../MaskFields';
 import HeaderForm from '../HeaderForm';
 import { FormContainer, Container, Button } from './styles';
 import { States } from '../../constants';
+import getZipCode from '../../services/zipcode';
 
 const FieldsForm = () => {
   const [value, setValue] = useState({
@@ -43,6 +44,33 @@ const FieldsForm = () => {
     city: false,
     state: false,
   });
+
+  async function zipCode(zip) {
+    try {
+      const response = await getZipCode.get(`/${zip}/json/`);
+      setValue({
+        ...value,
+        address: response.data.logradouro,
+        neighborhood: response.data.bairro,
+        city: response.data.localidade,
+        state: response.data.uf,
+      });
+    } catch (err) {
+      console.log('erro');
+    }
+  }
+
+  useEffect(() => {
+    const codeZip = value.zipcode
+      .split('_')
+      .join('')
+      .split('-')
+      .join('');
+
+    if (codeZip.length === 8) {
+      zipCode(codeZip);
+    }
+  }, [value.zipcode]);
 
   function handleValue(event) {
     setValue({ ...value, [event.target.name]: event.target.value });
@@ -273,7 +301,6 @@ const FieldsForm = () => {
 
     console.log('Form validado para api', value);
   }
-
   // console.log('value', value);
   return (
     <FormContainer onSubmit={handleSubmit}>
