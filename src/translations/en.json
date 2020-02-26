@@ -1,0 +1,57 @@
+{
+  "header-form-user": "User:",
+  "header-form-adress": "Adress:",
+  "header-form-card": "Credit card:",
+
+
+  "checkout-form-btn-pay": "Pay",
+  "checkout-form-payment-method-title": "PAYMENT METHOD",
+  "checkout-form-payment-method-card": "Credit card",
+  "checkout-form-payment-method-billet": "Billet",
+
+  "checkout-form-payment-card-name": "YOUR NAME HERE",
+  "checkout-form-payment-card-expiry": "valid thru",
+
+
+  "checkout-form-user-name": "Name",
+  "checkout-form-user-email": "E-mail",
+  "checkout-form-user-cpf": "CPF",
+  "checkout-form-user-phone": "Phone",
+  "checkout-form-user-password": "Password",
+  "checkout-form-user-password-confirm": "Password confirm",
+
+  "checkout-form-user-name-error": "Enter a valid name.",
+  "checkout-form-user-email-error": "Enter a valid e-mail.",
+  "checkout-form-user-cpf-error": "Enter a valid cpf.",
+  "checkout-form-user-phone-error": "Enter a valid phone.",
+  "checkout-form-user-password-error": "Your password must be at least 5 characters.",
+  "checkout-form-user-password-confirm-error": "Passwords must be the same.",
+
+
+  "checkout-form-adress-zipcode": "Zip Code",
+  "checkout-form-adress-street": "Address",
+  "checkout-form-adress-number": "Number",
+  "checkout-form-adress-complement": "Complement",
+  "checkout-form-adress-neighborhood": "Neighborhood",
+  "checkout-form-adress-city": "City",
+  "checkout-form-adress-state": "State",
+
+  "checkout-form-adress-zipcode-error": "Enter a valid zip code.",
+  "checkout-form-adress-street-error": "Enter a valid address.",
+  "checkout-form-adress-number-error": "Enter a valid number.",
+  "checkout-form-adress-complement-error": "Enter a valid complement.",
+  "checkout-form-adress-neighborhood-error": "Enter a valid neighborhood.",
+  "checkout-form-adress-city-error": "Enter a valid city.",
+  "checkout-form-adress-state-error": "Choose a valid state.",
+
+
+  "checkout-form-card-name": "Card name",
+  "checkout-form-card-number": "Card number",
+  "checkout-form-card-expiry": "Valid thru",
+  "checkout-form-card-cvc": "CVC",
+
+  "checkout-form-card-name-error": "Enter a valid card name.",
+  "checkout-form-card-number-error": "Enter a valid card number.",
+  "checkout-form-card-expiry-error": "Enter a valid month/year.",
+  "checkout-form-card-cvc-error": "Enter a valid cvc."
+}

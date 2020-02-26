@@ -9,7 +9,7 @@ const HeaderForm = ({ title, size, color, margin }) => (
 );
 
 HeaderForm.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   size: PropTypes.string,
   color: PropTypes.string,
   margin: PropTypes.string,

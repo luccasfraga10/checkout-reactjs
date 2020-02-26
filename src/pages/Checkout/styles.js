@@ -28,9 +28,30 @@ export const Navbar = styled.section`
   align-items: center;
   justify-content: center;
   background: #7059c1;
+  position: relative;
 
   h1 {
     color: #fff;
     font-size: 29px;
+  }
+
+  .box-btn {
+    position: absolute;
+    right: 30px;
+  }
+  button {
+    border: 0;
+    margin: 0 3px;
+    background: #fff;
+    color: #333;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px 13px;
+    cursor: pointer;
+
+    &.active {
+      background: #947bed;
+      color: #fff;
+    }
   }
 `;

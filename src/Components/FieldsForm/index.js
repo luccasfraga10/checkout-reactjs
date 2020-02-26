@@ -5,6 +5,7 @@ import {
   InputAdornment,
   MenuItem,
 } from '@material-ui/core';
+import { FormattedHTMLMessage } from 'react-intl';
 import Cards from 'react-credit-cards';
 import {
   FieldsUserForm,
@@ -483,7 +484,7 @@ const FieldsForm = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <HeaderForm title="User:" />
+      <HeaderForm title={<FormattedHTMLMessage id="header-form-user" />} />
       <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
         {FieldsUserForm &&
           FieldsUserForm.map(field => (
@@ -495,7 +496,7 @@ const FieldsForm = () => {
               <TextField
                 placeholder={field.placeholder && field.placeholder}
                 variant={field.variant && field.variant}
-                label={field.label}
+                label={<FormattedHTMLMessage id={field.label} />}
                 id={field.label}
                 type={field.type}
                 select={field.type === 'select'}
@@ -505,8 +506,9 @@ const FieldsForm = () => {
                 error={field.nameField && formValid[field.nameField]}
                 helperText={
                   field.nameField &&
-                  formValid[field.nameField] &&
-                  field.msgError
+                  formValid[field.nameField] && (
+                    <FormattedHTMLMessage id={field.msgError} />
+                  )
                 }
                 inputProps={{
                   maxLength: field.maxLength && field.maxLength,
@@ -517,7 +519,10 @@ const FieldsForm = () => {
           ))}
       </Container>
 
-      <HeaderForm title="Adress:" margin="70px 0 15px" />
+      <HeaderForm
+        title={<FormattedHTMLMessage id="header-form-adress" />}
+        margin="70px 0 15px"
+      />
       <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
         {FieldsAdress &&
           FieldsAdress.map(field => (
@@ -529,7 +534,7 @@ const FieldsForm = () => {
               <TextField
                 placeholder={field.placeholder && field.placeholder}
                 variant={field.variant && field.variant}
-                label={field.label}
+                label={<FormattedHTMLMessage id={field.label} />}
                 id={field.label}
                 type={field.type}
                 select={field.type === 'select'}
@@ -539,8 +544,9 @@ const FieldsForm = () => {
                 error={field.nameField && formValid[field.nameField]}
                 helperText={
                   field.nameField &&
-                  formValid[field.nameField] &&
-                  field.msgError
+                  formValid[field.nameField] && (
+                    <FormattedHTMLMessage id={field.msgError} />
+                  )
                 }
                 inputProps={{
                   maxLength: field.maxLength && field.maxLength,
@@ -562,7 +568,10 @@ const FieldsForm = () => {
       <PaymentMethod onCallback={handlePaymentType} />
       {paymentType === PaymentTypes[0] && (
         <>
-          <HeaderForm title="Credit card:" margin="0 0 15px" />
+          <HeaderForm
+            title={<FormattedHTMLMessage id="header-form-card" />}
+            margin="0 0 15px"
+          />
           <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
             <div className="space">
               {FieldsPayment &&
@@ -575,7 +584,7 @@ const FieldsForm = () => {
                     <TextField
                       placeholder={field.placeholder && field.placeholder}
                       variant={field.variant && field.variant}
-                      label={field.label}
+                      label={<FormattedHTMLMessage id={field.label} />}
                       id={field.label}
                       type={field.type}
                       select={field.type === 'select'}
@@ -586,8 +595,9 @@ const FieldsForm = () => {
                       error={field.nameField && formValid[field.nameField]}
                       helperText={
                         field.nameField &&
-                        formValid[field.nameField] &&
-                        field.msgError
+                        formValid[field.nameField] && (
+                          <FormattedHTMLMessage id={field.msgError} />
+                        )
                       }
                       inputProps={{
                         maxLength: field.maxLength && field.maxLength,
@@ -606,8 +616,16 @@ const FieldsForm = () => {
                 number={value.number}
                 callback={handleCallbackCard}
                 focused={value.focused}
-                // placeholders={{ name: 'Nome' }}
-                // locale={{ valid: 'Validade' }}
+                placeholders={{
+                  name: (
+                    <FormattedHTMLMessage id="checkout-form-payment-card-name" />
+                  ),
+                }}
+                locale={{
+                  valid: (
+                    <FormattedHTMLMessage id="checkout-form-payment-card-expiry" />
+                  ),
+                }}
               />
             </div>
           </Container>
@@ -619,7 +637,8 @@ const FieldsForm = () => {
           <i className="fa fa-spinner fa-pulse" />
         ) : (
           <>
-            Pay &nbsp;&nbsp;
+            <FormattedHTMLMessage id="checkout-form-btn-pay" />
+            &nbsp;&nbsp;
             <i className="fa fa-rocket" />
           </>
         )}

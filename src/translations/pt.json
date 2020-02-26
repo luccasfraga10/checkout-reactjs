@@ -1,0 +1,56 @@
+{
+  "header-form-user": "Usuário:",
+  "header-form-adress": "Endereço:",
+  "header-form-card": "Cartão de crédito:",
+
+  "checkout-form-btn-pay": "Pagar",
+  "checkout-form-payment-method-title": "FORMA DE PAGAMENTO",
+  "checkout-form-payment-method-card": "Cartão de crédito",
+  "checkout-form-payment-method-billet": "Boleto",
+
+  "checkout-form-payment-card-name": "Nome",
+  "checkout-form-payment-card-expiry": "validade",
+
+
+  "checkout-form-user-name": "Nome",
+  "checkout-form-user-email": "E-mail",
+  "checkout-form-user-cpf": "CPF",
+  "checkout-form-user-phone": "Tel",
+  "checkout-form-user-password": "Senha",
+  "checkout-form-user-password-confirm": "Confirmar a senha",
+
+  "checkout-form-user-name-error": "Digite um nome válido.",
+  "checkout-form-user-email-error": "Digite um email válido.",
+  "checkout-form-user-cpf-error": "Digite um cpf válido.",
+  "checkout-form-user-phone-error": "Digite um telefone válido.",
+  "checkout-form-user-password-error": "Sua senha deve ter pelo menos 5 caracteres.",
+  "checkout-form-user-password-confirm-error": "As senhas devem ser as mesmas.",
+
+
+  "checkout-form-adress-zipcode": "CEP",
+  "checkout-form-adress-street": "Endereço",
+  "checkout-form-adress-number": "Número",
+  "checkout-form-adress-complement": "Complemento",
+  "checkout-form-adress-neighborhood": "Bairro",
+  "checkout-form-adress-city": "Cidade",
+  "checkout-form-adress-state": "Estado",
+
+  "checkout-form-adress-zipcode-error": "Digite um cep válido.",
+  "checkout-form-adress-street-error": "Digite um endereço válido.",
+  "checkout-form-adress-number-error": "Digite um número válido.",
+  "checkout-form-adress-complement-error": "Digite um complemento válido.",
+  "checkout-form-adress-neighborhood-error": "Digite um bairro válido.",
+  "checkout-form-adress-city-error": "Digite uma cidade válida.",
+  "checkout-form-adress-state-error": "Escolha um estado válido.",
+
+
+  "checkout-form-card-name": "Nome no cartão",
+  "checkout-form-card-number": "Número no cartão",
+  "checkout-form-card-expiry": "Validade",
+  "checkout-form-card-cvc": "CVC",
+
+  "checkout-form-card-name-error": "Digite um nome de cartão válido.",
+  "checkout-form-card-number-error": "Digite um número de cartão válido.",
+  "checkout-form-card-expiry-error": "Digite um mês/ano válido.",
+  "checkout-form-card-cvc-error": "Digite um cvc válido."
+}
