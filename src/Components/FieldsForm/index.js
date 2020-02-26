@@ -5,8 +5,20 @@ import {
   InputAdornment,
   MenuItem,
 } from '@material-ui/core';
-import { FieldsUserForm, FormDirectionRow, FieldsAdress } from './configFields';
-import { MaskCPF, MaskPhone, MaskZipcode } from '../MaskFields';
+import Cards from 'react-credit-cards';
+import {
+  FieldsUserForm,
+  FormDirectionRow,
+  FieldsAdress,
+  FieldsPayment,
+} from './configFields';
+import {
+  MaskCPF,
+  MaskPhone,
+  MaskZipcode,
+  MaskCardNumber,
+  MaskValidate,
+} from '../MaskFields';
 import HeaderForm from '../HeaderForm';
 import { FormContainer, Container, Button } from './styles';
 import { States } from '../../constants';
@@ -27,6 +39,11 @@ const FieldsForm = () => {
     neighborhood: '',
     city: '',
     state: '',
+    cardName: '',
+    cardNumber: '',
+    cardMMYYYY: '',
+    cardCvc: '',
+    issuer: '',
   });
 
   const [formValid, setFormValid] = useState({
@@ -43,6 +60,10 @@ const FieldsForm = () => {
     neighborhood: false,
     city: false,
     state: false,
+    cardName: false,
+    cardNumber: false,
+    cardMMYYYY: false,
+    cardCvc: false,
   });
 
   async function zipCode(zip) {
@@ -79,7 +100,6 @@ const FieldsForm = () => {
   function validateForm() {
     const regexEmail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     const regexCPF = /[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/;
-    const regexPassword = /(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[aA-zZ]).*$/;
     const fieldsStatus = [];
 
     if (value.name.length < 2) {
@@ -124,7 +144,17 @@ const FieldsForm = () => {
       fieldsStatus.push(true);
     }
 
-    if (value.phone.length <= 14) {
+    if (
+      value.phone
+        .split('_')
+        .join('')
+        .split('(')
+        .join('')
+        .split(')')
+        .join('')
+        .split('-')
+        .join('').length <= 10
+    ) {
       setFormValid(prevState => ({
         ...prevState,
         phone: true,
@@ -138,10 +168,7 @@ const FieldsForm = () => {
       fieldsStatus.push(true);
     }
 
-    if (
-      !regexPassword.test(value.password) ||
-      !regexPassword.test(value.passwordConfirm)
-    ) {
+    if (value.password.length < 5) {
       setFormValid(prevState => ({
         ...prevState,
         password: true,
@@ -163,7 +190,13 @@ const FieldsForm = () => {
       fieldsStatus.push(true);
     }
 
-    if (value.zipcode.length < 9) {
+    if (
+      value.zipcode
+        .split('_')
+        .join('')
+        .split('-')
+        .join('').length < 8
+    ) {
       setFormValid(prevState => ({
         ...prevState,
         zipcode: true,
@@ -247,6 +280,74 @@ const FieldsForm = () => {
       fieldsStatus.push(true);
     }
 
+    if (value.cardName.length < 2) {
+      setFormValid(prevState => ({
+        ...prevState,
+        cardName: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        cardName: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
+    if (
+      value.cardNumber
+        .split('_')
+        .join('')
+        .split('-')
+        .join('').length < 19
+    ) {
+      setFormValid(prevState => ({
+        ...prevState,
+        cardNumber: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        cardNumber: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
+    if (
+      value.cardMMYYYY
+        .split('_')
+        .join('')
+        .split('/')
+        .join('').length < 6
+    ) {
+      setFormValid(prevState => ({
+        ...prevState,
+        cardMMYYYY: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        cardMMYYYY: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
+    if (value.cardCvc.length < 3) {
+      setFormValid(prevState => ({
+        ...prevState,
+        cardCvc: true,
+      }));
+      fieldsStatus.push(false);
+    } else {
+      setFormValid(prevState => ({
+        ...prevState,
+        cardCvc: false,
+      }));
+      fieldsStatus.push(true);
+    }
+
     const formStatus = fieldsStatus.every(element => {
       return element !== false;
     });
@@ -258,6 +359,8 @@ const FieldsForm = () => {
     const cpf = field.nameField === 'cpf';
     const phone = field.nameField === 'phone';
     const zipcode = field.nameField === 'zipcode';
+    const cardNumber = field.nameField === 'cardNumber';
+    const cardMMYYYY = field.nameField === 'cardMMYYYY';
 
     let obj = {
       startAdornment: (
@@ -266,6 +369,20 @@ const FieldsForm = () => {
         </InputAdornment>
       ),
     };
+
+    if (cardNumber) {
+      obj = {
+        ...obj,
+        inputComponent: MaskCardNumber,
+      };
+    }
+
+    if (cardMMYYYY) {
+      obj = {
+        ...obj,
+        inputComponent: MaskValidate,
+      };
+    }
 
     if (cpf) {
       obj = {
@@ -291,6 +408,12 @@ const FieldsForm = () => {
     return obj;
   }
 
+  function handleCallbackCard({ issuer }, isValid) {
+    if (isValid) {
+      setValue({ ...value, issuer });
+    }
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     const validForm = validateForm();
@@ -301,7 +424,7 @@ const FieldsForm = () => {
 
     console.log('Form validado para api', value);
   }
-  // console.log('value', value);
+
   return (
     <FormContainer onSubmit={handleSubmit}>
       <HeaderForm title="User:" />
@@ -378,6 +501,54 @@ const FieldsForm = () => {
               </TextField>
             </FormControl>
           ))}
+      </Container>
+
+      <HeaderForm title="Payment:" margin="70px 0 15px" />
+      <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
+        <div className="space">
+          {FieldsPayment &&
+            FieldsPayment.map(field => (
+              <FormControl
+                key={field.id}
+                error={field.nameField && formValid[field.nameField]}
+                style={{ width: FormDirectionRow ? field.width : '100%' }}
+              >
+                <TextField
+                  placeholder={field.placeholder && field.placeholder}
+                  variant={field.variant && field.variant}
+                  label={field.label}
+                  id={field.label}
+                  type={field.type}
+                  select={field.type === 'select'}
+                  onChange={handleValue}
+                  value={field.nameField && value[field.nameField]}
+                  name={field.nameField}
+                  error={field.nameField && formValid[field.nameField]}
+                  helperText={
+                    field.nameField &&
+                    formValid[field.nameField] &&
+                    field.msgError
+                  }
+                  inputProps={{
+                    maxLength: field.maxLength && field.maxLength,
+                  }}
+                  InputProps={inputProps(field)}
+                />
+              </FormControl>
+            ))}
+        </div>
+
+        <div>
+          <Cards
+            cvc={value.cardCvc}
+            expiry={value.cardMMYYYY}
+            name={value.cardName}
+            number={value.cardNumber}
+            callback={handleCallbackCard}
+            // placeholders={{ name: 'Nome' }}
+            // locale={{ valid: 'Validade' }}
+          />
+        </div>
       </Container>
 
       <Button disabled={false}>

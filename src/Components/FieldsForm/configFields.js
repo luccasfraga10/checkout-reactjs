@@ -1,10 +1,10 @@
 export const FormDirectionRow = true;
 
-// nomeCartao, numeroCartao, mesValCartao, cvvCartao
+// cardName, cardNumber, cardMMYYYY, cardCvc
 
 export const FieldsUserForm = [
   {
-    variant: 'standard', // standard || outlined || filled
+    variant: 'outlined', // standard || outlined || filled
     id: 1,
     nameField: 'name',
     label: 'Name',
@@ -16,7 +16,7 @@ export const FieldsUserForm = [
     width: '33.3%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 2,
     nameField: 'email',
     label: 'E-mail',
@@ -28,7 +28,7 @@ export const FieldsUserForm = [
     width: '33.3%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 3,
     nameField: 'cpf',
     label: 'CPF',
@@ -40,7 +40,7 @@ export const FieldsUserForm = [
     width: '33.3%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 4,
     nameField: 'phone',
     label: 'Phone',
@@ -52,26 +52,26 @@ export const FieldsUserForm = [
     width: '33.3%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 5,
     nameField: 'password',
     label: 'Password',
     type: 'password',
     icon: 'fa fa-user',
     placeholder: '',
-    msgError: 'Password must be at least 1 letter and 1 number',
+    msgError: 'Your password must be at least 5 characters.',
     maxLength: '',
     width: '33.3%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 6,
     nameField: 'passwordConfirm',
     label: 'Password confirm',
     type: 'password',
     icon: 'fa fa-user',
     placeholder: '',
-    msgError: 'Passwords are not supported',
+    msgError: 'Passwords must be the same.',
     maxLength: '',
     width: '33.3%',
   },
@@ -79,7 +79,7 @@ export const FieldsUserForm = [
 
 export const FieldsAdress = [
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 1,
     nameField: 'zipcode',
     label: 'Zip Code',
@@ -91,7 +91,7 @@ export const FieldsAdress = [
     width: '25%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 2,
     nameField: 'address',
     label: 'Address',
@@ -103,7 +103,7 @@ export const FieldsAdress = [
     width: '60%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 3,
     nameField: 'number',
     label: 'Number',
@@ -115,7 +115,7 @@ export const FieldsAdress = [
     width: '15%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 4,
     nameField: 'complement',
     label: 'Complement',
@@ -127,7 +127,7 @@ export const FieldsAdress = [
     width: '25%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 5,
     nameField: 'neighborhood',
     label: 'Neighborhood',
@@ -139,7 +139,7 @@ export const FieldsAdress = [
     width: '25%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 6,
     nameField: 'city',
     label: 'City',
@@ -151,7 +151,7 @@ export const FieldsAdress = [
     width: '25%',
   },
   {
-    variant: 'standard',
+    variant: 'outlined',
     id: 7,
     nameField: 'state',
     label: 'State',
@@ -161,5 +161,56 @@ export const FieldsAdress = [
     msgError: 'Enter a valid state.',
     maxLength: '',
     width: '25%',
+  },
+];
+
+export const FieldsPayment = [
+  {
+    variant: 'outlined',
+    id: 1,
+    nameField: 'cardName',
+    label: 'Card name',
+    type: 'text',
+    icon: 'fa fa-user',
+    placeholder: '',
+    msgError: 'Enter a valid card name code.',
+    maxLength: '',
+    width: '50%',
+  },
+  {
+    variant: 'outlined',
+    id: 2,
+    nameField: 'cardNumber',
+    label: 'Card number',
+    type: 'text',
+    icon: 'fa fa-user',
+    placeholder: '',
+    msgError: 'Enter a valid card number.',
+    maxLength: '',
+    width: '50%',
+  },
+  {
+    variant: 'outlined',
+    id: 3,
+    nameField: 'cardMMYYYY',
+    label: 'validity month/year',
+    type: 'text',
+    icon: 'fa fa-user',
+    placeholder: '',
+    msgError: 'Enter a valid month/year.',
+    maxLength: '',
+    width: '50%',
+  },
+  {
+    variant: 'outlined',
+    id: 4,
+    nameField: 'cardCvc',
+    label: 'CVC',
+    type: 'text',
+    icon: 'fa fa-user',
+    placeholder: '',
+    msgError: 'Enter a valid cvc.',
+    maxLength: 3,
+    width: '50%',
   },
 ];

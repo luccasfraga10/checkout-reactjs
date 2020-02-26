@@ -73,3 +73,51 @@ export function MaskZipcode(props) {
     />
   );
 }
+
+export function MaskCardNumber(props) {
+  const { inputRef, ...other } = props;
+  return (
+    <MaskedInput
+      {...other}
+      ref={ref => {
+        inputRef(ref ? ref.inputElement : null);
+      }}
+      mask={[
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+      ]}
+      showMask={false}
+    />
+  );
+}
+
+export function MaskValidate(props) {
+  const { inputRef, ...other } = props;
+  return (
+    <MaskedInput
+      {...other}
+      ref={ref => {
+        inputRef(ref ? ref.inputElement : null);
+      }}
+      mask={[/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+      showMask={false}
+    />
+  );
+}

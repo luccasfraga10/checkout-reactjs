@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import 'react-credit-cards/es/styles-compiled.css';
 
 export const FormContainer = styled.form`
   display: block;
@@ -9,11 +10,21 @@ export const Container = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  margin: 0 -20px;
+  margin: 0 -10px;
   flex-direction: ${props => props.FormDirectionRow};
+  justify-content: space-between;
+
+  .space {
+    margin: 0 -10px;
+    width: 76%;
+    > div {
+      padding: 0 10px;
+      margin-top: 25px;
+    }
+  }
 
   > div {
-    padding: 0 20px;
+    padding: 0 10px;
     margin-top: 25px;
 
     /* Chrome, Safari, Edge, Opera */
@@ -41,7 +52,6 @@ export const Button = styled.button`
   color: #fff;
   font-weight: bold;
   border-radius: 6px;
-  margin-top: 28px;
   cursor: pointer;
   border: 1px solid #7059c1;
   transition: all 0.2s ease-in-out;
