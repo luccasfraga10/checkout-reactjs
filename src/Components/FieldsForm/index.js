@@ -26,7 +26,7 @@ import getZipCode from '../../services/zipcode';
 import PaymentMethod from '../PaymentMethod';
 
 const FieldsForm = () => {
-  const [paymentType, setPaymentType] = useState('card');
+  const [paymentType, setPaymentType] = useState(PaymentTypes[0]);
 
   const [value, setValue] = useState({
     nameUser: '',
@@ -284,72 +284,74 @@ const FieldsForm = () => {
       fieldsStatus.push(true);
     }
 
-    if (value.name.length < 2) {
-      setFormValid(prevState => ({
-        ...prevState,
-        name: true,
-      }));
-      fieldsStatus.push(false);
-    } else {
-      setFormValid(prevState => ({
-        ...prevState,
-        name: false,
-      }));
-      fieldsStatus.push(true);
-    }
+    if (paymentType === PaymentTypes[0]) {
+      if (value.name.length < 2) {
+        setFormValid(prevState => ({
+          ...prevState,
+          name: true,
+        }));
+        fieldsStatus.push(false);
+      } else {
+        setFormValid(prevState => ({
+          ...prevState,
+          name: false,
+        }));
+        fieldsStatus.push(true);
+      }
 
-    if (
-      value.number
-        .split('_')
-        .join('')
-        .split('-')
-        .join('').length < 19
-    ) {
-      setFormValid(prevState => ({
-        ...prevState,
-        number: true,
-      }));
-      fieldsStatus.push(false);
-    } else {
-      setFormValid(prevState => ({
-        ...prevState,
-        number: false,
-      }));
-      fieldsStatus.push(true);
-    }
+      if (
+        value.number
+          .split('_')
+          .join('')
+          .split('-')
+          .join('').length < 19
+      ) {
+        setFormValid(prevState => ({
+          ...prevState,
+          number: true,
+        }));
+        fieldsStatus.push(false);
+      } else {
+        setFormValid(prevState => ({
+          ...prevState,
+          number: false,
+        }));
+        fieldsStatus.push(true);
+      }
 
-    if (
-      value.expiry
-        .split('_')
-        .join('')
-        .split('/')
-        .join('').length < 6
-    ) {
-      setFormValid(prevState => ({
-        ...prevState,
-        expiry: true,
-      }));
-      fieldsStatus.push(false);
-    } else {
-      setFormValid(prevState => ({
-        ...prevState,
-        expiry: false,
-      }));
-      fieldsStatus.push(true);
-    }
+      if (
+        value.expiry
+          .split('_')
+          .join('')
+          .split('/')
+          .join('').length < 6
+      ) {
+        setFormValid(prevState => ({
+          ...prevState,
+          expiry: true,
+        }));
+        fieldsStatus.push(false);
+      } else {
+        setFormValid(prevState => ({
+          ...prevState,
+          expiry: false,
+        }));
+        fieldsStatus.push(true);
+      }
 
-    if (value.cvc.length < 3) {
-      setFormValid(prevState => ({
-        ...prevState,
-        cvc: true,
-      }));
-      fieldsStatus.push(false);
-    } else {
-      setFormValid(prevState => ({
-        ...prevState,
-        cvc: false,
-      }));
-      fieldsStatus.push(true);
+      if (value.cvc.length < 3) {
+        setFormValid(prevState => ({
+          ...prevState,
+          cvc: true,
+        }));
+        fieldsStatus.push(false);
+      } else {
+        setFormValid(prevState => ({
+          ...prevState,
+          cvc: false,
+        }));
+        fieldsStatus.push(true);
+      }
     }
 
     const formStatus = fieldsStatus.every(element => {
@@ -434,7 +436,40 @@ const FieldsForm = () => {
       return;
     }
 
-    console.log('Form validado para api', value);
+    let request = {
+      name: value.nameUser,
+      email: value.email,
+      cpf: value.cpf,
+      phone: value.phone,
+      password: value.password,
+      passwordConfirm: value.passwordConfirm,
+      zipcode: value.zipcode,
+      address: value.address,
+      numberAddress: value.numberAddress,
+      complement: value.complement,
+      neighborhood: value.neighborhood,
+      city: value.city,
+      state: value.state,
+    };
+
+    if (paymentType === PaymentTypes[0]) {
+      request = {
+        ...request,
+        cardName: value.name,
+        cardNumber: value.number,
+        cardExpiry: value.expiry,
+        cardCvc: value.cvc,
+        cardIssuer: value.issuer,
+      };
+    }
+    console.log('Send api this request', request);
+
+    // try {
+    //   const response = await api.post('yoururl', request);
+    //   console.log(response);
+    // } catch (err) {
+    //   console.log('Erro', err);
+    // }
   }
 
   return (
@@ -518,7 +553,7 @@ const FieldsForm = () => {
       <PaymentMethod onCallback={handlePaymentType} />
       {paymentType === PaymentTypes[0] && (
         <>
-          <HeaderForm title="Payment:" margin="0 0 15px" />
+          <HeaderForm title="Credit card:" margin="0 0 15px" />
           <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
             <div className="space">
               {FieldsPayment &&
