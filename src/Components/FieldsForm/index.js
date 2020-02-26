@@ -27,6 +27,7 @@ import PaymentMethod from '../PaymentMethod';
 
 const FieldsForm = () => {
   const [paymentType, setPaymentType] = useState(PaymentTypes[0]);
+  const [loadingBtn, setLoadingBtn] = useState(false);
 
   const [value, setValue] = useState({
     nameUser: '',
@@ -464,11 +465,19 @@ const FieldsForm = () => {
     }
     console.log('Send api this request', request);
 
+    setLoadingBtn(true);
+
+    setTimeout(() => {
+      setLoadingBtn(false);
+    }, 3000);
+
     // try {
     //   const response = await api.post('yoururl', request);
     //   console.log(response);
+    //   setLoadingBtn(true);
     // } catch (err) {
     //   console.log('Erro', err);
+    //   setLoadingBtn(false);
     // }
   }
 
@@ -606,8 +615,14 @@ const FieldsForm = () => {
       )}
 
       <Button disabled={false}>
-        Pay &nbsp;&nbsp;
-        <i className="fa fa-rocket" />
+        {loadingBtn ? (
+          <i className="fa fa-spinner fa-pulse" />
+        ) : (
+          <>
+            Pay &nbsp;&nbsp;
+            <i className="fa fa-rocket" />
+          </>
+        )}
       </Button>
     </FormContainer>
   );
