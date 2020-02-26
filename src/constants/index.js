@@ -27,3 +27,5 @@ export const States = [
   { value: 'SE', label: 'SE' },
   { value: 'TO', label: 'TO' },
 ];
+
+export const PaymentTypes = ['card', 'billet'];

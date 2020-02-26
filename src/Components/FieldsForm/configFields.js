@@ -193,7 +193,7 @@ export const FieldsPayment = [
     variant: 'outlined',
     id: 3,
     nameField: 'expiry',
-    label: 'validity month/year',
+    label: 'Valid thru',
     type: 'text',
     icon: 'fa fa-user',
     placeholder: '',

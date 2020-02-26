@@ -21,10 +21,13 @@ import {
 } from '../MaskFields';
 import HeaderForm from '../HeaderForm';
 import { FormContainer, Container, Button } from './styles';
-import { States } from '../../constants';
+import { States, PaymentTypes } from '../../constants';
 import getZipCode from '../../services/zipcode';
+import PaymentMethod from '../PaymentMethod';
 
 const FieldsForm = () => {
+  const [paymentType, setPaymentType] = useState('card');
+
   const [value, setValue] = useState({
     nameUser: '',
     email: '',
@@ -419,6 +422,10 @@ const FieldsForm = () => {
     setValue({ ...value, focused: target.name });
   }
 
+  function handlePaymentType(type) {
+    setPaymentType(type);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     const validForm = validateForm();
@@ -508,58 +515,63 @@ const FieldsForm = () => {
           ))}
       </Container>
 
-      <HeaderForm title="Payment:" margin="70px 0 15px" />
-      <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
-        <div className="space">
-          {FieldsPayment &&
-            FieldsPayment.map(field => (
-              <FormControl
-                key={field.id}
-                error={field.nameField && formValid[field.nameField]}
-                style={{ width: FormDirectionRow ? field.width : '100%' }}
-              >
-                <TextField
-                  placeholder={field.placeholder && field.placeholder}
-                  variant={field.variant && field.variant}
-                  label={field.label}
-                  id={field.label}
-                  type={field.type}
-                  select={field.type === 'select'}
-                  onChange={handleValue}
-                  onFocus={handleInputFocus}
-                  value={field.nameField && value[field.nameField]}
-                  name={field.nameField}
-                  error={field.nameField && formValid[field.nameField]}
-                  helperText={
-                    field.nameField &&
-                    formValid[field.nameField] &&
-                    field.msgError
-                  }
-                  inputProps={{
-                    maxLength: field.maxLength && field.maxLength,
-                  }}
-                  InputProps={inputProps(field)}
-                />
-              </FormControl>
-            ))}
-        </div>
+      <PaymentMethod onCallback={handlePaymentType} />
+      {paymentType === PaymentTypes[0] && (
+        <>
+          <HeaderForm title="Payment:" margin="0 0 15px" />
+          <Container FormDirectionRow={FormDirectionRow ? 'row' : 'column'}>
+            <div className="space">
+              {FieldsPayment &&
+                FieldsPayment.map(field => (
+                  <FormControl
+                    key={field.id}
+                    error={field.nameField && formValid[field.nameField]}
+                    style={{ width: FormDirectionRow ? field.width : '100%' }}
+                  >
+                    <TextField
+                      placeholder={field.placeholder && field.placeholder}
+                      variant={field.variant && field.variant}
+                      label={field.label}
+                      id={field.label}
+                      type={field.type}
+                      select={field.type === 'select'}
+                      onChange={handleValue}
+                      onFocus={handleInputFocus}
+                      value={field.nameField && value[field.nameField]}
+                      name={field.nameField}
+                      error={field.nameField && formValid[field.nameField]}
+                      helperText={
+                        field.nameField &&
+                        formValid[field.nameField] &&
+                        field.msgError
+                      }
+                      inputProps={{
+                        maxLength: field.maxLength && field.maxLength,
+                      }}
+                      InputProps={inputProps(field)}
+                    />
+                  </FormControl>
+                ))}
+            </div>
 
-        <div>
-          <Cards
-            cvc={value.cvc}
-            expiry={value.expiry}
-            name={value.name}
-            number={value.number}
-            callback={handleCallbackCard}
-            focused={value.focused}
-            // placeholders={{ name: 'Nome' }}
-            // locale={{ valid: 'Validade' }}
-          />
-        </div>
-      </Container>
+            <div>
+              <Cards
+                cvc={value.cvc}
+                expiry={value.expiry}
+                name={value.name}
+                number={value.number}
+                callback={handleCallbackCard}
+                focused={value.focused}
+                // placeholders={{ name: 'Nome' }}
+                // locale={{ valid: 'Validade' }}
+              />
+            </div>
+          </Container>
+        </>
+      )}
 
       <Button disabled={false}>
-        Send &nbsp;&nbsp;
+        Pay &nbsp;&nbsp;
         <i className="fa fa-rocket" />
       </Button>
     </FormContainer>
