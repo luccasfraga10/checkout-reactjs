@@ -26,7 +26,7 @@ import getZipCode from '../../services/zipcode';
 
 const FieldsForm = () => {
   const [value, setValue] = useState({
-    name: '',
+    nameUser: '',
     email: '',
     cpf: '',
     phone: '',
@@ -34,20 +34,21 @@ const FieldsForm = () => {
     passwordConfirm: '',
     zipcode: '',
     address: '',
-    number: '',
+    numberAddress: '',
     complement: '',
     neighborhood: '',
     city: '',
     state: '',
-    cardName: '',
-    cardNumber: '',
-    cardMMYYYY: '',
-    cardCvc: '',
+    name: '',
+    number: '',
+    expiry: '',
+    cvc: '',
     issuer: '',
+    focused: '',
   });
 
   const [formValid, setFormValid] = useState({
-    name: false,
+    nameUser: false,
     email: false,
     cpf: false,
     phone: false,
@@ -55,15 +56,15 @@ const FieldsForm = () => {
     passwordConfirm: false,
     zipcode: false,
     address: false,
-    number: false,
+    numberAddress: false,
     complement: false,
     neighborhood: false,
     city: false,
     state: false,
-    cardName: false,
-    cardNumber: false,
-    cardMMYYYY: false,
-    cardCvc: false,
+    name: false,
+    number: false,
+    expiry: false,
+    cvc: false,
   });
 
   async function zipCode(zip) {
@@ -102,16 +103,16 @@ const FieldsForm = () => {
     const regexCPF = /[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/;
     const fieldsStatus = [];
 
-    if (value.name.length < 2) {
+    if (value.nameUser.length < 2) {
       setFormValid(prevState => ({
         ...prevState,
-        name: true,
+        nameUser: true,
       }));
       fieldsStatus.push(false);
     } else {
       setFormValid(prevState => ({
         ...prevState,
-        name: false,
+        nameUser: false,
       }));
       fieldsStatus.push(true);
     }
@@ -224,16 +225,16 @@ const FieldsForm = () => {
       fieldsStatus.push(true);
     }
 
-    if (value.number.length < 1) {
+    if (value.numberAddress.length < 1) {
       setFormValid(prevState => ({
         ...prevState,
-        number: true,
+        numberAddress: true,
       }));
       fieldsStatus.push(false);
     } else {
       setFormValid(prevState => ({
         ...prevState,
-        number: false,
+        numberAddress: false,
       }));
       fieldsStatus.push(true);
     }
@@ -280,22 +281,22 @@ const FieldsForm = () => {
       fieldsStatus.push(true);
     }
 
-    if (value.cardName.length < 2) {
+    if (value.name.length < 2) {
       setFormValid(prevState => ({
         ...prevState,
-        cardName: true,
+        name: true,
       }));
       fieldsStatus.push(false);
     } else {
       setFormValid(prevState => ({
         ...prevState,
-        cardName: false,
+        name: false,
       }));
       fieldsStatus.push(true);
     }
 
     if (
-      value.cardNumber
+      value.number
         .split('_')
         .join('')
         .split('-')
@@ -303,19 +304,19 @@ const FieldsForm = () => {
     ) {
       setFormValid(prevState => ({
         ...prevState,
-        cardNumber: true,
+        number: true,
       }));
       fieldsStatus.push(false);
     } else {
       setFormValid(prevState => ({
         ...prevState,
-        cardNumber: false,
+        number: false,
       }));
       fieldsStatus.push(true);
     }
 
     if (
-      value.cardMMYYYY
+      value.expiry
         .split('_')
         .join('')
         .split('/')
@@ -323,27 +324,27 @@ const FieldsForm = () => {
     ) {
       setFormValid(prevState => ({
         ...prevState,
-        cardMMYYYY: true,
+        expiry: true,
       }));
       fieldsStatus.push(false);
     } else {
       setFormValid(prevState => ({
         ...prevState,
-        cardMMYYYY: false,
+        expiry: false,
       }));
       fieldsStatus.push(true);
     }
 
-    if (value.cardCvc.length < 3) {
+    if (value.cvc.length < 3) {
       setFormValid(prevState => ({
         ...prevState,
-        cardCvc: true,
+        cvc: true,
       }));
       fieldsStatus.push(false);
     } else {
       setFormValid(prevState => ({
         ...prevState,
-        cardCvc: false,
+        cvc: false,
       }));
       fieldsStatus.push(true);
     }
@@ -359,8 +360,8 @@ const FieldsForm = () => {
     const cpf = field.nameField === 'cpf';
     const phone = field.nameField === 'phone';
     const zipcode = field.nameField === 'zipcode';
-    const cardNumber = field.nameField === 'cardNumber';
-    const cardMMYYYY = field.nameField === 'cardMMYYYY';
+    const number = field.nameField === 'number';
+    const expiry = field.nameField === 'expiry';
 
     let obj = {
       startAdornment: (
@@ -370,14 +371,14 @@ const FieldsForm = () => {
       ),
     };
 
-    if (cardNumber) {
+    if (number) {
       obj = {
         ...obj,
         inputComponent: MaskCardNumber,
       };
     }
 
-    if (cardMMYYYY) {
+    if (expiry) {
       obj = {
         ...obj,
         inputComponent: MaskValidate,
@@ -412,6 +413,10 @@ const FieldsForm = () => {
     if (isValid) {
       setValue({ ...value, issuer });
     }
+  }
+
+  function handleInputFocus({ target }) {
+    setValue({ ...value, focused: target.name });
   }
 
   async function handleSubmit(e) {
@@ -521,6 +526,7 @@ const FieldsForm = () => {
                   type={field.type}
                   select={field.type === 'select'}
                   onChange={handleValue}
+                  onFocus={handleInputFocus}
                   value={field.nameField && value[field.nameField]}
                   name={field.nameField}
                   error={field.nameField && formValid[field.nameField]}
@@ -540,11 +546,12 @@ const FieldsForm = () => {
 
         <div>
           <Cards
-            cvc={value.cardCvc}
-            expiry={value.cardMMYYYY}
-            name={value.cardName}
-            number={value.cardNumber}
+            cvc={value.cvc}
+            expiry={value.expiry}
+            name={value.name}
+            number={value.number}
             callback={handleCallbackCard}
+            focused={value.focused}
             // placeholders={{ name: 'Nome' }}
             // locale={{ valid: 'Validade' }}
           />

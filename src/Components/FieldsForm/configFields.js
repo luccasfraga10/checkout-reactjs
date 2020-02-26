@@ -6,7 +6,7 @@ export const FieldsUserForm = [
   {
     variant: 'outlined', // standard || outlined || filled
     id: 1,
-    nameField: 'name',
+    nameField: 'nameUser',
     label: 'Name',
     type: 'text',
     icon: 'fa fa-user',
@@ -105,7 +105,7 @@ export const FieldsAdress = [
   {
     variant: 'outlined',
     id: 3,
-    nameField: 'number',
+    nameField: 'numberAddress',
     label: 'Number',
     type: 'text',
     icon: 'fa fa-user',
@@ -168,7 +168,7 @@ export const FieldsPayment = [
   {
     variant: 'outlined',
     id: 1,
-    nameField: 'cardName',
+    nameField: 'name',
     label: 'Card name',
     type: 'text',
     icon: 'fa fa-user',
@@ -180,7 +180,7 @@ export const FieldsPayment = [
   {
     variant: 'outlined',
     id: 2,
-    nameField: 'cardNumber',
+    nameField: 'number',
     label: 'Card number',
     type: 'text',
     icon: 'fa fa-user',
@@ -192,7 +192,7 @@ export const FieldsPayment = [
   {
     variant: 'outlined',
     id: 3,
-    nameField: 'cardMMYYYY',
+    nameField: 'expiry',
     label: 'validity month/year',
     type: 'text',
     icon: 'fa fa-user',
@@ -204,7 +204,7 @@ export const FieldsPayment = [
   {
     variant: 'outlined',
     id: 4,
-    nameField: 'cardCvc',
+    nameField: 'cvc',
     label: 'CVC',
     type: 'text',
     icon: 'fa fa-user',
